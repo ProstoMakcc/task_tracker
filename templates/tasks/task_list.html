@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <form method="get">
+        <div class="searchbar">
+            <p class="search">
+                <select name="{{ form.status.name }}" class="borderless-select">
+                    {% for value, label in form.status.field.choices %}
+                        <option value="{{ value }}" {% if value == form.status.value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <button type="submit" class="button">Search</button>
+            <button class="button"><a href="{% url 'task-create' %}">Create task</a></button>
+        </div>    
+    </form>
+{% endblock %}
+
+{% block content %}
+    <div class="task-list">
+        <ul class="priorities">
+            {% for task in tasks %}
+                <li>
+                    <div class="task {{ task.priority }}">
+                        <h1>{{ task.title }}</h1>
+                        <p>{{ task.status }}</p>
+                        <p>{{ task.priority }}</p>
+        
+                        <button class="button"><a href="{% url 'task-detail' task.pk %}">Details</a></button>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>  
+    </div>
+{% endblock %}

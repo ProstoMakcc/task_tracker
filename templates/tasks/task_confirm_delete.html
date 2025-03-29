@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>Are you sure you want to delete "{{ object.title }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button class="button"><a href="{% url 'task-list' %}">Back to task list</a></button>
+        <button class="button"><a href="{% url 'task-detail' object.pk %}">Back to current task</a></button>
+
+        <button class="button" type="submit">Delete</button>
+    </form>
+{% endblock %}

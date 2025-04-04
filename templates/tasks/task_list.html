@@ -12,22 +12,26 @@
             </p>
 
             <button type="submit" class="button">Search</button>
-            <button class="button"><a href="{% url 'task-create' %}">Create task</a></button>
+            <a href="{% url 'task-create' %}"><button type="button" class="button">Create task</button></a>
         </div>    
     </form>
 {% endblock %}
 
 {% block content %}
-    <div class="task-list">
-        <ul class="priorities">
+    <div class="task-list tasks">
+        <ul class="tasks">
             {% for task in tasks %}
                 <li>
                     <div class="task {{ task.priority }}">
-                        <h1>{{ task.title }}</h1>
-                        <p>{{ task.status }}</p>
-                        <p>{{ task.priority }}</p>
-        
-                        <button class="button"><a href="{% url 'task-detail' task.pk %}">Details</a></button>
+                        <h1 class="title">{{ task.title }}</h1>
+                        
+                        
+                        <div class="task-detail-div">
+                            <p class="status {{ task.status }}">{{ task.status }}</p>
+                            <p class="priority {{ task.priority }}">{{ task.priority }}</p>
+                            <a href="{% url 'task-detail' task.pk %}"><button class="button">Details</button></a>
+                        </div>
+                        
                     </div>
                 </li>
             {% endfor %}

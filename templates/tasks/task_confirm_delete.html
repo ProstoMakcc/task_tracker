@@ -4,9 +4,9 @@
     
     <form method="post">
         {% csrf_token %}
-        <button class="button"><a href="{% url 'task-list' %}">Back to task list</a></button>
-        <button class="button"><a href="{% url 'task-detail' object.pk %}">Back to current task</a></button>
+        <a href="{% url 'task-list' %}"><button class="button">Back to task list</button></a>
+        <a href="{% url 'task-detail' object.pk %}"><button class="button">Back to current task</button></a>
 
-        <button class="button" type="submit">Delete</button>
+        <button class="button delete" type="submit">Delete</button>
     </form>
 {% endblock %}

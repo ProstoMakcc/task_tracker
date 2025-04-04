@@ -2,20 +2,42 @@
 {% block content %}
     <div class="details">
         <div class="head-row">
-            <h1>{{ task.title }}</h1><h3>created by: {{ task.creator }}</h3>
+            <div class="task-info-div">
+                <h2>{{ task.title }}</h2><h3>created by {{ task.creator }}</h3>
+                <p class="priority {{ task.priority }}">{{ task.priority }}</p>
+                <p class="status {{ task.status }}">{{ task.status }}</p>
+            </div>
         </div>
 
-        <button class="button"><a href="{% url 'task-list' %}">Back to list</a></button>
-        <button class="button"><a href="{% url 'task-delete' task.pk %}">Delete</a></button>
-        <button class="button"><a href="{% url 'task-update' task.pk %}">Update</a></button>
-        
-        <p>Task priority: {{ task.priority }}</p>
-        <p>Task status: {{ task.status }}</p>
+        <a href="{% url 'task-list' %}"><button class="button">Back to list</button></a>
+        <a href="{% url 'task-delete' task.pk %}"><button class="button delete">Delete</button></a>
+        <a href="{% url 'task-update' task.pk %}"><button class="button update">Update</button></a>
 
         <p>Created at: {{ task.created_at }}</p>
         <p>Due date: {{ task.due_date }}</p>
         
         <p>Description: {{ task.description }}</p>
+
+        <hr>
+
+        <h2>Comments:</h2>
+
+        {% for comment in task.comments.all %}
+            <h3>{{ comment.author }} created at {{ comment.created_at }}</h3>
+            <p>{{ comment.content }}</p>
+            <a href="{% url 'comment-update' comment.pk %}"><button class="button update">Update</button></a>
+            <a href="{% url 'comment-delete' comment.pk %}"><button class="button delete">Delete</button></a>
+        {% endfor %}
         
+        <hr>
+
+        <h2>Create your own comment:</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+
+            <button class="button" type="submit">Submit</button>
+        </form>
     </div>
 {% endblock %}

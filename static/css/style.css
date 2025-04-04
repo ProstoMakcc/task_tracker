@@ -5,6 +5,7 @@
     margin-top: 20px;
     margin-right: 10px;
     margin-bottom: 20px;
+    margin-left: 10px;
     padding: 10px;
     border-radius: 5px;
     background-color: #f0f0f0;
@@ -44,6 +45,15 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     width: auto;
     height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-detail-div {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    gap: 10px; 
 }
 
 a {
@@ -56,42 +66,47 @@ a {
     background-color: #f0f0f0;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
 }
 
 .task {
     border-radius: 5px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
-.priorities {
+.tasks ul {
     list-style-type: none;
     padding: 0;
     margin: 10px 0;
 }
 
-.priorities li {
+.tasks li {
     padding: 10px;
     margin: 5px 0;
     border-radius: 4px;
 }
 
-.high {
+.task.high {
     color: #721c24;
     background-color: #f8d7da;  
 }
 
-.medium {
+.task.medium {
     color: #856404;
     background-color: #fff3cd;
 }
 
-.low {
+.task.low {
     color: #155724;
     background-color: #d4edda;
 }
 
-.critical {
+.task.critical {
     color: #ff0000;
     background-color: #f8d7da;
 }
@@ -115,6 +130,7 @@ a {
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
 }
 
 .borderless-select {
@@ -153,4 +169,62 @@ a {
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+.update {
+    background-color: #f5b400;
+}
+
+.delete {
+    background-color: #dc3545;
+}
+
+.status, .priority {
+    border: none;
+    border-radius: 15px;
+    color: white;
+    padding: 2px;
+    width: 90px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);   
+}
+
+.todo {
+    background-color: #007bff;
+}
+
+.done {
+    background-color: #28a745;
+}
+
+.in_progress {
+    background-color: #ffc107;
+}
+
+.priority.high {
+    background-color: #ce0000;
+}
+
+.priority.medium {
+    background-color: #ff9900;
+}
+
+.priority.low {
+    background-color: #28a745;
+}
+
+.priority.critical {
+    background-color: #f82424;
+}
+
+
+.task-info-div {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    gap: 10px; 
 }

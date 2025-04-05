@@ -9,4 +9,5 @@ urlpatterns = [
     path('task-delete/<int:pk>/', views.TaskDeleteView.as_view(), name="task-delete"),
     path('comment-update/<int:pk>/', views.CommentUpdateView.as_view(), name="comment-update"),
     path('comment-delete/<int:pk>/', views.CommentDeleteView.as_view(), name="comment-delete"),
+    path('comment-like/<int:pk>/', views.CommentLike.as_view(), name="comment-like")
 ]

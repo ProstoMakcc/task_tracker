@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Task, Comment
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from .models import Task, Comment, Like
 from .forms import CreateTaskForm, TaskFilterForm, CommentForm
 from django.urls import reverse_lazy
 from .mixins import UserIsOwnerMixin
@@ -89,3 +89,15 @@ class CommentDeleteView(DeleteView, LoginRequiredMixin, UserIsOwnerMixin):
 
     def get_success_url(self):
         return reverse_lazy("task-detail", kwargs={'pk': self.object.task.id})
+    
+
+class CommentLike(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        comment = get_object_or_404(Comment, pk=self.kwargs.get('pk'))
+        like_qs = Like.objects.filter(comment=comment, user=request.user)
+        if like_qs.exists():
+            like_qs.delete()
+        else:
+            Like.objects.create(comment=comment, user=request.user)
+        return HttpResponseRedirect(comment.get_absolute_url())
+    

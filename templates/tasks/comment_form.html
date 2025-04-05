@@ -4,6 +4,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
+        <a href="{% url 'task-detail' object.pk %}"><button class="button">Back to current task</button></a>
         <button class="button" type="submit">Update</button>
     </form>
 {% endblock %}

@@ -5,8 +5,8 @@
             {% csrf_token %}
             {{ form.as_p }}
             
-            <a><button class="button" type="submit">Submit</button></a>
-            <a href="{% url 'task-list' %}"><button type="button" class="button">Back to task list</button></a>
+            <a><button class="button" type="submit">Підтвердити</button></a>
+            <a href="{% url 'task-list' %}"><button type="button" class="button">Назад до списку завдань</button></a>
         </div>
     </form>
 {% endblock %}

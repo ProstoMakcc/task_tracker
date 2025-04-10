@@ -1,0 +1,7 @@
+pip freeze > requirements.txt Создати текстовий файл з скачаними бібліотеками
+python -m venv venv Создати віртуальне оточення
+./venv/Scripts/activate Активувати віртуальне оточення
+deactivate Деактивувати віртуальне оточення
+django-admin startproject mysite mysite Почати проект на джанго
+py manage.py startapp userdb 
+py manage.py createsuperuser Создати адміна на джанго 8

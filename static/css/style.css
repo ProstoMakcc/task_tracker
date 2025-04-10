@@ -228,3 +228,111 @@ a {
     align-items: center;
     gap: 10px; 
 }
+
+.container {
+    width: 100%;
+    height: 120svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: #b8b4b1 1px solid;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.auth-form label {
+    margin-left: 10px;
+}
+
+.auth-form a {
+    text-decoration: underline;
+    color: blue;
+    margin-left: 10px;
+}
+
+.auth-form button {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #4CAF50;
+    width: 90%;
+    height: 30px;
+    margin-left: 8px;
+}
+
+.input-field {
+    border-radius: 10px;
+    border: 1px solid #b8b4b1;
+    width: 98%;
+    height: 30px;
+    margin: 5px;
+}
+
+.auth-form input {
+    border-radius: 10px;
+    border: 1px solid #b8b4b1;
+    width: 90%;
+    height: 30px;
+        margin: 5px;
+}
+
+.login-sizes {
+    height: 40%;
+    width: 22%;
+    margin-bottom: 15%;
+}
+
+.register-sizes {
+    height: 75%;
+    width: 22%;
+    margin-bottom: 15%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.messages .error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.messages .warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.messages .success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.download-link {
+    text-decoration: underline;
+    color: #007bff;
+}

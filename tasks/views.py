@@ -5,6 +5,7 @@ from .forms import CreateTaskForm, TaskFilterForm, CommentForm
 from django.urls import reverse_lazy
 from .mixins import UserIsOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import forms
 
 
 class TaskListView(ListView):
@@ -36,14 +37,16 @@ class TaskDetailView(DetailView):
 
         return context
     
-    def post(self, request, *args, **kwargs):
-        comment_form = CommentForm(request.POST)
+    def post(self, request, pk):
+        comment_form = CommentForm(request.POST, request.FILES)
+        task = self.get_object()
+
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.task = self.get_object()
+            comment.task = task
             comment.author = request.user
             comment.save()
-
+            
         return redirect("task-detail", pk=comment.task.pk)
             
 
@@ -69,16 +72,22 @@ class TaskDeleteView(DeleteView, LoginRequiredMixin, UserIsOwnerMixin):
     success_url = reverse_lazy("task-list")
 
 
-class CommentUpdateView(UpdateView):
+class CommentUpdateView(UpdateView, LoginRequiredMixin, UserIsOwnerMixin):
     model = Comment
     fields = ["content"]
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['content'].widget.attrs.update({'class': 'input-field'})
+        
+        return form
 
     def form_valid(self, form):
         comment = self.get_object()
         if comment.author == self.request.user:
             return super().form_valid(form)
         
-        raise PermissionError('You dont have permissions')
+        raise PermissionError('Недостатньо прав')
     
     def get_success_url(self):
         return reverse_lazy("task-detail", kwargs={'pk': self.object.task.id})

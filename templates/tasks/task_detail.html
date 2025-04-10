@@ -1,31 +1,50 @@
 {% extends 'base.html' %}
+
 {% block content %}
+    {% load custom_tags %}
     <div class="details">
         <div class="head-row">
             <div class="task-info-div">
-                <h2>{{ task.title }}</h2><h3>created by {{ task.creator }}</h3>
+                <h2>{{ task.title }}</h2><h3>створено {{ task.creator }}</h3>
                 <p class="priority {{ task.priority }}">{{ task.priority }}</p>
                 <p class="status {{ task.status }}">{{ task.status }}</p>
             </div>
         </div>
 
-        <a href="{% url 'task-list' %}"><button class="button">Back to list</button></a>
-        <a href="{% url 'task-delete' task.pk %}"><button class="button delete">Delete</button></a>
-        <a href="{% url 'task-update' task.pk %}"><button class="button update">Update</button></a>
-
-        <p>Created at: {{ task.created_at }}</p>
-        <p>Due date: {{ task.due_date }}</p>
+        <a href="{% url 'task-list' %}"><button class="button">Назад до списку завдань</button></a>
+        <a href="{% url 'task-update' task.pk %}"><button class="button update">Оновити</button></a>
+        <a href="{% url 'task-delete' task.pk %}"><button class="button delete">Видалити</button></a>
         
-        <p>Description: {{ task.description }}</p>
+        <p>Створено: {{ task.created_at }}</p>
+        <p>Термін: {{ task.due_date }}</p>
+        
+        <p>Опис: {{ task.description }}</p>
 
         <hr>
 
-        <h2>Comments:</h2>
+        <h2>Коментарі:</h2>
 
         {% for comment in task.comments.all %}
-            <h3>{{ comment.author }} created at {{ comment.created_at }}</h3>
+            <div style="display: flex; flex-direction: row; align-items: center;">
+                <img src="{{ comment.author.avatar.url }}" alt="Avatar" class="avatar" style="width: 16px; border-radius: 16px;">
+                
+                <h3>{{ comment.author }}</h3>
+                &nbsp;&nbsp;
+                <p>{{ comment.created_at }}</p>
+            </div>
+
             <p>{{ comment.content }}</p>
-            
+
+            {% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".png" or comment.media.url|endswith:".jpeg" %}
+                <img src="{{ comment.media.url }}" alt="Comment Image" class="comment-image" style="max-width: 500px;">
+            {% elif comment.media.url|endswith:".mp4" or comment.media.url|endswith:".avi" or comment.media.url|endswith:".mov"%}
+                <video controls style="max-width: 500px;">
+                    <source src="{{ comment.media.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% elif comment.media %}
+                <a href="{{ comment.media.url }}" class="download-link" download>Завантажити файл</a>
+            {% endif %}
 
             <form action="{% url 'comment-like' comment.pk %}" method="post">
                 {% csrf_token %}
@@ -33,20 +52,20 @@
                     Лайк {{ comment.likes.count }}
                 </button>
 
-                <a href="{% url 'comment-update' comment.pk %}"><button type="button" class="button update">Update</button></a>
-                <a href="{% url 'comment-delete' comment.pk %}"><button type="button" class="button delete">Delete</button></a>
+                <a href="{% url 'comment-update' comment.pk %}"><button type="button" class="button update">Оновити</button></a>
+                <a href="{% url 'comment-delete' comment.pk %}"><button type="button" class="button delete">Видалити</button></a>
             </form>
         {% endfor %}
         
         <hr>
 
-        <h2>Create your own comment:</h2>
+        <h2>Створити свій коментар:</h2>
 
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ comment_form.as_p }}
 
-            <button class="button" type="submit">Submit</button>
+            <button type="submit" class="button">Додати коментар</button>
         </form>
     </div>
 {% endblock %}

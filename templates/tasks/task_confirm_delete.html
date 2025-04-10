@@ -4,9 +4,9 @@
     
     <form method="post">
         {% csrf_token %}
-        <a href="{% url 'task-list' %}"><button class="button">Back to task list</button></a>
-        <a href="{% url 'task-detail' object.pk %}"><button class="button">Back to current task</button></a>
+        <a href="{% url 'task-list' %}"><button class="button" type="button">Назад до списку завдань</button></a>
+        <a href="{% url 'task-detail' object.pk %}"><button class="button" type="button">Назад до поточного завдання</button></a>
 
-        <button class="button delete" type="submit">Delete</button>
+        <button class="button delete" type="submit">Видалити</button>
     </form>
 {% endblock %}
